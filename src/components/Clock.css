@@ -1,0 +1,86 @@
+/* Clock.css */
+
+.clock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin: 0px 10px 10px 10px;
+  border: 0;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  width: fit-content;
+}
+
+.clock-title {
+  font-size: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 5px;
+  border: 0;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.clock-time {
+  font-size: 100px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
+  display: flex;
+  align-items: baseline;
+}
+
+.clock-period {
+  font-size: 0.5em;
+  margin-left: 5px;
+  vertical-align: top;
+}
+
+.clock-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.clock-controls select,
+.clock-controls button,
+.clock-container input,
+.footer button #remove-btn {
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.clock-container option {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+#remove-btn {
+  background-color: #ff4d4f;
+  color: white;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+#change-btn {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+#remove-btn:hover {
+  background-color: #cc0000;
+}
