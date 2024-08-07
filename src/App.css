@@ -25,11 +25,11 @@ body {
   align-items: center;
   background-color: rgba(0, 0, 0, 0);
   color: white;
-  /* position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; */
+  z-index: 1000;
   /* padding: 0 10px; */
   box-sizing: border-box;
   -webkit-app-region: drag; /* Make the header draggable */
@@ -46,29 +46,85 @@ body {
   background-color: transparent;
   color: white;
   border: none;
-  padding-top: 5px;
+  padding: 5px;
   cursor: pointer;
   height: 100%;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   -webkit-app-region: no-drag; /* Make buttons non-draggable */
-  /* margin-left: 10px; */
-  width: 60px;
-}
-
-.app-header button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .add-clock-button,
+.edit-clocks-btn {
+  width: 40px; /* Initial width */
+  transition: width 0.3s ease;
+  overflow: hidden;
+  padding-left: 10px; /* Ensure the icon is fully visible */
+}
+
+.add-clock-button:hover,
+.edit-clocks-btn:hover {
+  width: 120px; /* Expanded width */
+}
+
+.add-clock-button i,
+.edit-clocks-btn i {
+  font-size: 20px;
+  margin-right: 10px; /* Space between icon and text */
+  padding-left: 10px;
+}
+
+.button-text {
+  display: inline-block;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-size: 14px;
+}
+
+.add-clock-button:hover .button-text,
+.edit-clocks-btn:hover .button-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.edit-clocks-btn {
+  margin-left: 5px;
+}
+
+.add-clock-button:hover,
+.edit-clocks-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .close-app-button {
   font-size: 20px;
+  /* width: 40px; */
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
 }
 
 .clocks-container {
+  margin-top: 60px; /* Allow space for header */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.close-app-button:hover {
+  color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.left-header button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

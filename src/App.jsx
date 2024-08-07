@@ -38,14 +38,25 @@ const App = () => {
       <div className="app-header">
         <div className="left-header">
           <button className="add-clock-button" onClick={addClock}>
-            +
+            <i className="fa-solid fa-plus"></i>
+            <span className="button-text">Add Clock</span>
           </button>
           <button className="edit-clocks-btn" onClick={handleEditClocks}>
-            {isEditing ? "Done Editing" : "Edit Clocks"}
+            {isEditing ? (
+              <>
+                <i className="fa-solid fa-rotate-left"></i>
+                <span className="button-text">Done</span>
+              </>
+            ) : (
+              <>
+                <i className="fa-regular fa-pen-to-square"></i>
+                <span className="button-text">Edit</span>
+              </>
+            )}
           </button>
         </div>
         <button className="close-app-button" onClick={closeApp}>
-          X
+          <i className="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div className="clocks-container">
