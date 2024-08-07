@@ -29,22 +29,21 @@ const App = () => {
     window.electron.ipcRenderer.send("close-app");
   };
 
+  const handleEditClocks = () => {
+    setIsEditing(!isEditing);
+  };
+
   return (
-    <div
-      className="app-container"
-      onMouseEnter={() => setIsEditing(true)}
-      onMouseLeave={() => setIsEditing(false)}
-    >
-      <div className={`app-header ${isEditing ? "visible" : ""}`}>
-        <button className="add-clock-button" onClick={addClock}>
-          +
-        </button>
-        <button
-          className="edit-clocks-btn"
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? "Done Editing" : "Edit Clocks"}
-        </button>
+    <div className="app-container">
+      <div className="app-header">
+        <div className="left-header">
+          <button className="add-clock-button" onClick={addClock}>
+            +
+          </button>
+          <button className="edit-clocks-btn" onClick={handleEditClocks}>
+            {isEditing ? "Done Editing" : "Edit Clocks"}
+          </button>
+        </div>
         <button className="close-app-button" onClick={closeApp}>
           X
         </button>
@@ -57,6 +56,7 @@ const App = () => {
             removeClock={removeClock}
             updateClock={updateClock}
             isEditing={isEditing}
+            setIsEditing={setIsEditing}
           />
         ))}
       </div>
