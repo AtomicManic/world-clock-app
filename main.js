@@ -8,7 +8,7 @@ function createWindow() {
     width: 600,
     height: 330,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"), // Ensure this path is correct
+      preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
       nodeIntegration: false,
     },
@@ -26,7 +26,7 @@ function createWindow() {
     const filePath = path.join(__dirname, "dist", "index.html");
     console.log(`Loading file: ${filePath}`);
     win
-      .loadFile(filePath) // Load the built HTML file
+      .loadFile(filePath)
       .then(() => {
         console.log("File loaded successfully.");
         win.webContents.openDevTools(); // Remove this in production for security
@@ -45,6 +45,13 @@ function createWindow() {
     if (win) {
       win.close();
       console.log("Close app signal received");
+    }
+  });
+
+  ipcMain.on("resize-app", (event, { width, height }) => {
+    if (win) {
+      win.setSize(width, height);
+      console.log(`Resized app to: ${width}x${height}`);
     }
   });
 }

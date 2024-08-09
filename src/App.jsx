@@ -4,11 +4,8 @@ import "./App.css";
 
 const App = () => {
   const [clocks, setClocks] = useState([]);
-  const [isEditing, setIsEditing] = useState(true);
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [resizeDirection, setResizeDirection] = useState("horizontal");
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,6 +21,35 @@ const App = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    adjustWindowSize();
+  }, [clocks, resizeDirection]);
+
+  const adjustWindowSize = () => {
+    const clockSize = 220; // Size of each clock
+    const numClocks = clocks.length;
+    const baseWidth = 350; // Base width for one clock
+    const baseHeight = 400; // Base height for one clock, adjusted for visibility
+
+    const newSize =
+      numClocks <= 1
+        ? { width: baseWidth, height: baseHeight }
+        : resizeDirection === "horizontal"
+        ? { width: baseWidth + (numClocks - 1) * clockSize, height: baseHeight }
+        : {
+            width: baseWidth,
+            height: baseHeight + (numClocks - 1) * clockSize,
+          };
+
+    // Ensure the height doesn't exceed the screen height
+    const screenHeight = window.screen.availHeight;
+    if (newSize.height > screenHeight) {
+      newSize.height = screenHeight;
+    }
+
+    window.electron.ipcRenderer.send("resize-app", newSize);
+  };
 
   const addClock = () => {
     if (clocks.length < 5) {
@@ -54,6 +80,12 @@ const App = () => {
     setIsEditing(!isEditing);
   };
 
+  const toggleResizeDirection = () => {
+    setResizeDirection(
+      resizeDirection === "horizontal" ? "vertical" : "horizontal"
+    );
+  };
+
   return (
     <div className="app-container">
       <div className="app-header">
@@ -75,12 +107,21 @@ const App = () => {
               </>
             )}
           </button>
+          <button
+            className="resize-direction-btn"
+            onClick={toggleResizeDirection}
+          >
+            <i className="fa-solid fa-arrows-alt"></i>
+            <span className="button-text">
+              {resizeDirection === "horizontal" ? "Horizontal" : "Vertical"}
+            </span>
+          </button>
         </div>
         <button className="close-app-button" onClick={closeApp}>
           <i className="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <div className="clocks-container">
+      <div className={`clocks-container ${resizeDirection}`}>
         {clocks.map((clock) => (
           <Clock
             key={clock.id}

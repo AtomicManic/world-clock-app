@@ -24,8 +24,8 @@ const Clock = ({ clock, removeClock, updateClock, isEditing, totalClocks }) => {
   }).format(time);
 
   const getFontSize = () => {
-    const baseSize = 5;
-    const maxClocks = 7;
+    const baseSize = 4;
+    const maxClocks = 6;
     const scaleFactor = Math.max(1 - (totalClocks - 1) / maxClocks, 0.6);
     return `${baseSize * scaleFactor}em`;
   };
@@ -46,40 +46,38 @@ const Clock = ({ clock, removeClock, updateClock, isEditing, totalClocks }) => {
           {clock.format === "12" ? formattedTime.split(" ")[1] : ""}
         </span>
       </div>
-      {isEditing && (
-        <div className="clock-controls">
-          <select
-            value={clock.timezone}
-            onChange={(e) => updateClock(clock.id, "timezone", e.target.value)}
-          >
-            {timeZones.map((tz) => {
-              if (tz.ianaName === null) {
-                return (
-                  <option key={tz.label} value={tz.ianaName} disabled>
-                    {tz.label}
-                  </option>
-                );
-              } else {
-                return (
-                  <option key={tz.label} value={tz.ianaName}>
-                    {tz.label}
-                  </option>
-                );
-              }
-            })}
-          </select>
-          <select
-            value={clock.format}
-            onChange={(e) => updateClock(clock.id, "format", e.target.value)}
-          >
-            <option value="24">24-hour</option>
-            <option value="12">12-hour</option>
-          </select>
-          <button className="remove-btn" onClick={() => removeClock(clock.id)}>
-            X
-          </button>
-        </div>
-      )}
+      <div className={`clock-controls ${isEditing ? "visible" : "hidden"}`}>
+        <select
+          value={clock.timezone}
+          onChange={(e) => updateClock(clock.id, "timezone", e.target.value)}
+        >
+          {timeZones.map((tz) => {
+            if (tz.ianaName === null) {
+              return (
+                <option key={tz.label} value={tz.ianaName} disabled>
+                  {tz.label}
+                </option>
+              );
+            } else {
+              return (
+                <option key={tz.label} value={tz.ianaName}>
+                  {tz.label}
+                </option>
+              );
+            }
+          })}
+        </select>
+        <select
+          value={clock.format}
+          onChange={(e) => updateClock(clock.id, "format", e.target.value)}
+        >
+          <option value="24">24-hour</option>
+          <option value="12">12-hour</option>
+        </select>
+        <button className="remove-btn" onClick={() => removeClock(clock.id)}>
+          X
+        </button>
+      </div>
     </div>
   );
 };

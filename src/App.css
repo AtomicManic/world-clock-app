@@ -1,5 +1,3 @@
-/* App.css */
-
 body {
   margin: 0;
   overflow: hidden;
@@ -55,7 +53,8 @@ body {
 }
 
 .add-clock-button,
-.edit-clocks-btn {
+.edit-clocks-btn,
+.resize-direction-btn {
   width: 40px;
   transition: width 0.3s ease;
   overflow: hidden;
@@ -63,12 +62,14 @@ body {
 }
 
 .add-clock-button:hover,
-.edit-clocks-btn:hover {
+.edit-clocks-btn:hover,
+.resize-direction-btn:hover {
   width: 120px;
 }
 
 .add-clock-button i,
-.edit-clocks-btn i {
+.edit-clocks-btn i,
+.resize-direction-btn i {
   font-size: 20px;
   margin-right: 10px;
 }
@@ -83,7 +84,8 @@ body {
 }
 
 .add-clock-button:hover .button-text,
-.edit-clocks-btn:hover .button-text {
+.edit-clocks-btn:hover .button-text,
+.resize-direction-btn:hover .button-text {
   opacity: 1;
   transform: translateX(0);
 }
@@ -101,12 +103,23 @@ body {
 .clocks-container {
   flex: 1;
   display: flex;
-  flex-wrap: no-wrap;
   justify-content: center;
   align-items: flex-start;
-  /* padding: 20px; */
   overflow-y: auto;
   margin-top: 30px;
+}
+
+.clocks-container.horizontal {
+  flex-wrap: nowrap;
+  height: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+.clocks-container.vertical {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .close-app-button:hover {
