@@ -1,16 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Clock from "./components/Clock";
 import "./App.css";
 
 const App = () => {
   const [clocks, setClocks] = useState([]);
   const [isEditing, setIsEditing] = useState(true);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const addClock = () => {
-    setClocks([
-      ...clocks,
-      { id: Date.now(), timezone: "UTC", format: "24", title: "New Clock" },
-    ]);
+    if (clocks.length < 5) {
+      setClocks([
+        ...clocks,
+        { id: Date.now(), timezone: "UTC", format: "24", title: "New Clock" },
+      ]);
+    }
   };
 
   const removeClock = (id) => {
@@ -68,6 +89,7 @@ const App = () => {
             updateClock={updateClock}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
+            totalClocks={clocks.length}
           />
         ))}
       </div>

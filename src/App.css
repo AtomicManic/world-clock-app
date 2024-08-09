@@ -12,9 +12,7 @@ body {
   width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
+  overflow: hidden;
 }
 
 .app-header {
@@ -30,9 +28,9 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  /* padding: 0 10px; */
+  padding: 0 10px;
   box-sizing: border-box;
-  -webkit-app-region: drag; /* Make the header draggable */
+  -webkit-app-region: drag;
 }
 
 .left-header {
@@ -50,7 +48,7 @@ body {
   cursor: pointer;
   height: 100%;
   transition: all 0.3s ease;
-  -webkit-app-region: no-drag; /* Make buttons non-draggable */
+  -webkit-app-region: no-drag;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -58,22 +56,21 @@ body {
 
 .add-clock-button,
 .edit-clocks-btn {
-  width: 40px; /* Initial width */
+  width: 40px;
   transition: width 0.3s ease;
   overflow: hidden;
-  padding-left: 10px; /* Ensure the icon is fully visible */
+  padding-left: 10px;
 }
 
 .add-clock-button:hover,
 .edit-clocks-btn:hover {
-  width: 120px; /* Expanded width */
+  width: 120px;
 }
 
 .add-clock-button i,
 .edit-clocks-btn i {
   font-size: 20px;
-  margin-right: 10px; /* Space between icon and text */
-  padding-left: 10px;
+  margin-right: 10px;
 }
 
 .button-text {
@@ -91,40 +88,27 @@ body {
   transform: translateX(0);
 }
 
-.edit-clocks-btn {
-  margin-left: 5px;
-}
-
-.add-clock-button:hover,
-.edit-clocks-btn:hover {
+.app-header button:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
 .close-app-button {
   font-size: 20px;
-  /* width: 40px; */
+  width: 40px;
   justify-content: center;
-  align-items: center;
-  margin-right: 10px;
 }
 
 .clocks-container {
-  margin-top: 60px; /* Allow space for header */
+  flex: 1;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   justify-content: center;
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
+  align-items: flex-start;
+  /* padding: 20px; */
+  overflow-y: auto;
+  margin-top: 30px;
 }
 
 .close-app-button:hover {
   color: rgba(255, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.left-header button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }

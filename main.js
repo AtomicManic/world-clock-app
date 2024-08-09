@@ -5,8 +5,8 @@ let win;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 330,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // Ensure this path is correct
       contextIsolation: true,

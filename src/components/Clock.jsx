@@ -2,31 +2,33 @@ import React, { useState, useEffect } from "react";
 import "./Clock.css";
 import { timeZones } from "../util/timeZones";
 
-const Clock = ({ clock, removeClock, updateClock, isEditing }) => {
+const Clock = ({ clock, removeClock, updateClock, isEditing, totalClocks }) => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    // Set an interval to update the time every second
     const interval = setInterval(() => {
       setTime(new Date());
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // Get the IANA time zone name
   const timeZone = timeZones.find((tz) => tz.ianaName === clock.timezone);
-
-  // Fallback to "UTC" if the time zone isn't found
   const ianaName = timeZone ? timeZone.ianaName : "UTC";
 
-  // Use Intl.DateTimeFormat to format the time correctly based on time zone
   const formattedTime = new Intl.DateTimeFormat("en-US", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    hour12: clock.format === "12", // Determine 12/24 hour format
-    timeZone: ianaName, // Specify the time zone to use
+    hour12: clock.format === "12",
+    timeZone: ianaName,
   }).format(time);
+
+  const getFontSize = () => {
+    const baseSize = 5;
+    const maxClocks = 7;
+    const scaleFactor = Math.max(1 - (totalClocks - 1) / maxClocks, 0.6);
+    return `${baseSize * scaleFactor}em`;
+  };
 
   return (
     <div className="clock-container">
@@ -38,7 +40,7 @@ const Clock = ({ clock, removeClock, updateClock, isEditing }) => {
         className="clock-title"
       />
 
-      <div className="clock-time">
+      <div className="clock-time" style={{ fontSize: getFontSize() }}>
         {formattedTime.split(" ")[0]}
         <span className="clock-period">
           {clock.format === "12" ? formattedTime.split(" ")[1] : ""}
