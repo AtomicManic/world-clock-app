@@ -26,7 +26,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 0 10px;
+  padding: 0;
   box-sizing: border-box;
   -webkit-app-region: drag;
 }
@@ -34,8 +34,10 @@ body {
 .left-header {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   padding: 0;
   height: 100%;
+  width: 200px;
 }
 
 .app-header button {
@@ -97,7 +99,11 @@ body {
 .close-app-button {
   font-size: 20px;
   width: 40px;
+}
+
+#close-app-btn {
   justify-content: center;
+  align-items: center;
 }
 
 .clocks-container {

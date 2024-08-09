@@ -29,8 +29,8 @@ const App = () => {
   const adjustWindowSize = () => {
     const clockSize = 220; // Size of each clock
     const numClocks = clocks.length;
-    const baseWidth = 350; // Base width for one clock
-    const baseHeight = 400; // Base height for one clock, adjusted for visibility
+    const baseWidth = 400; // Base width for one clock
+    const baseHeight = 380; // Base height for one clock, adjusted for visibility
 
     const newSize =
       numClocks <= 1
@@ -39,7 +39,7 @@ const App = () => {
         ? { width: baseWidth + (numClocks - 1) * clockSize, height: baseHeight }
         : {
             width: baseWidth,
-            height: baseHeight + (numClocks - 1) * clockSize,
+            height: baseHeight + (numClocks - 1) * clockSize + 30,
           };
 
     // Ensure the height doesn't exceed the screen height
@@ -111,13 +111,21 @@ const App = () => {
             className="resize-direction-btn"
             onClick={toggleResizeDirection}
           >
-            <i className="fa-solid fa-arrows-alt"></i>
+            {resizeDirection === "horizontal" ? (
+              <i class="fa-solid fa-arrows-up-down"></i>
+            ) : (
+              <i class="fa-solid fa-arrows-left-right"></i>
+            )}
             <span className="button-text">
               {resizeDirection === "horizontal" ? "Horizontal" : "Vertical"}
             </span>
           </button>
         </div>
-        <button className="close-app-button" onClick={closeApp}>
+        <button
+          className="close-app-button"
+          id="close-app-btn"
+          onClick={closeApp}
+        >
           <i className="fa-solid fa-xmark"></i>
         </button>
       </div>

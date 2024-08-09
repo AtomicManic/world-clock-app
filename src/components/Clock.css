@@ -1,15 +1,15 @@
 .clock-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   /* justify-content: center; */
   flex-wrap: nowrap;
   padding: 20px;
   border: 0;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0);
-  width: calc(100% / 3 - 20px);
-  height: 300px;
+  width: calc(100% / 2);
+  height: 240px;
   min-width: 200px;
   max-width: 300px;
   aspect-ratio: 1 / 1;
@@ -23,6 +23,8 @@
   border: 0;
   border-radius: 4px;
   width: 100%;
+  align-self: center;
+  justify-self: flex-start;
 }
 
 .clock-time {
@@ -31,6 +33,7 @@
   color: white;
   display: flex;
   text-align: center;
+  align-self: center;
 }
 
 .clock-period {
@@ -94,4 +97,8 @@
 
 #remove-btn:hover {
   background-color: #cc0000;
+}
+
+button i {
+  cursor: pointer;
 }

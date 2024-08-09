@@ -74,9 +74,11 @@ const Clock = ({ clock, removeClock, updateClock, isEditing, totalClocks }) => {
           <option value="24">24-hour</option>
           <option value="12">12-hour</option>
         </select>
-        <button className="remove-btn" onClick={() => removeClock(clock.id)}>
-          X
-        </button>
+        {totalClocks > 1 && (
+          <button className="remove-btn" onClick={() => removeClock(clock.id)}>
+            <i class="fa-regular fa-trash-can"></i>
+          </button>
+        )}
       </div>
     </div>
   );
