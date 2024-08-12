@@ -2,12 +2,13 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 
 let win;
+let isResizing = false;
 
 function createWindow() {
   win = new BrowserWindow({
     width: 600,
     height: 330,
-    // resizable: false,
+    resizable: true, // Keep this true
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
@@ -16,6 +17,23 @@ function createWindow() {
     frame: false,
     alwaysOnTop: false,
     transparent: true,
+  });
+
+  // Custom function to handle resizing
+  const handleResize = (width, height) => {
+    isResizing = true;
+    win.setSize(width, height);
+    setTimeout(() => {
+      isResizing = false;
+    }, 100); // Small delay to ensure resize is complete
+  };
+
+  // Listen for resize attempts
+  win.on("will-resize", (event, newBounds) => {
+    if (!isResizing) {
+      // Prevent manual resizing
+      event.preventDefault();
+    }
   });
 
   if (process.env.NODE_ENV === "development") {
@@ -30,7 +48,6 @@ function createWindow() {
       .loadFile(filePath)
       .then(() => {
         console.log("File loaded successfully.");
-        win.webContents.openDevTools(); // Remove this in production for security
       })
       .catch((error) => {
         console.error("Error loading file:", error);
@@ -51,7 +68,7 @@ function createWindow() {
 
   ipcMain.on("resize-app", (event, { width, height }) => {
     if (win) {
-      win.setSize(width, height);
+      handleResize(width, height);
       console.log(`Resized app to: ${width}x${height}`);
     }
   });
