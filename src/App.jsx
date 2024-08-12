@@ -3,7 +3,9 @@ import Clock from "./components/Clock";
 import "./App.css";
 
 const App = () => {
-  const [clocks, setClocks] = useState([]);
+  const [clocks, setClocks] = useState([
+    { id: Date.now(), timezone: "UTC", format: "24", title: "New Clock" },
+  ]);
   const [isEditing, setIsEditing] = useState(false);
   const [resizeDirection, setResizeDirection] = useState("horizontal");
 
