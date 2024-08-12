@@ -110,23 +110,25 @@ body {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   overflow-y: auto;
   margin-top: 30px;
-  height: 30%;
+  /* height: 30%; */
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .clocks-container.horizontal {
   flex-wrap: nowrap;
   height: inherit;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .clocks-container.vertical {
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  height: auto;
 }
 
 .close-app-button:hover {

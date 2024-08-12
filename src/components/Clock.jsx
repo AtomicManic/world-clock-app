@@ -46,40 +46,37 @@ const Clock = ({ clock, removeClock, updateClock, isEditing, totalClocks }) => {
           {clock.format === "12" ? formattedTime.split(" ")[1] : ""}
         </span>
       </div>
-      <div className={`clock-controls ${isEditing ? "visible" : "hidden"}`}>
-        <select
-          value={clock.timezone}
-          onChange={(e) => updateClock(clock.id, "timezone", e.target.value)}
-        >
-          {timeZones.map((tz) => {
-            if (tz.ianaName === null) {
-              return (
-                <option key={tz.label} value={tz.ianaName} disabled>
-                  {tz.label}
-                </option>
-              );
-            } else {
-              return (
-                <option key={tz.label} value={tz.ianaName}>
-                  {tz.label}
-                </option>
-              );
-            }
-          })}
-        </select>
-        <select
-          value={clock.format}
-          onChange={(e) => updateClock(clock.id, "format", e.target.value)}
-        >
-          <option value="24">24-hour</option>
-          <option value="12">12-hour</option>
-        </select>
-        {totalClocks > 1 && (
-          <button className="remove-btn" onClick={() => removeClock(clock.id)}>
-            <i class="fa-regular fa-trash-can"></i>
-          </button>
-        )}
-      </div>
+
+      {/* Conditionally render the clock controls */}
+      {isEditing && (
+        <div className="clock-controls">
+          <select
+            value={clock.timezone}
+            onChange={(e) => updateClock(clock.id, "timezone", e.target.value)}
+          >
+            {timeZones.map((tz) => (
+              <option key={tz.label} value={tz.ianaName}>
+                {tz.label}
+              </option>
+            ))}
+          </select>
+          <select
+            value={clock.format}
+            onChange={(e) => updateClock(clock.id, "format", e.target.value)}
+          >
+            <option value="24">24-hour</option>
+            <option value="12">12-hour</option>
+          </select>
+          {totalClocks > 1 && (
+            <button
+              className="remove-btn"
+              onClick={() => removeClock(clock.id)}
+            >
+              <i className="fa-regular fa-trash-can"></i>
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -15,7 +15,7 @@ const App = () => {
       });
     };
 
-    window.addEventListener("resize", handleResize);
+    // window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -24,22 +24,32 @@ const App = () => {
 
   useEffect(() => {
     adjustWindowSize();
-  }, [clocks, resizeDirection]);
+  }, [clocks, resizeDirection, isEditing]);
 
   const adjustWindowSize = () => {
-    const clockSize = 220; // Size of each clock
+    const clockwidth = 200; // Size of each clock
     const numClocks = clocks.length;
-    const baseWidth = 400; // Base width for one clock
-    const baseHeight = 380; // Base height for one clock, adjusted for visibility
-
+    const clockHeight = clocks.length === 2 ? 165 : 140; // Height of each clock
+    const baseWidth = 300; // Base width for one clock
+    const baseHeight = 200; // Base height for one clock, adjusted for visibility
+    const editSectionHeight = 120; // Height of the edit section
     const newSize =
-      numClocks <= 1
-        ? { width: baseWidth, height: baseHeight }
+      numClocks === 1
+        ? {
+            width: baseWidth + numClocks * clockwidth,
+            height: isEditing ? baseHeight + editSectionHeight : baseHeight,
+          }
         : resizeDirection === "horizontal"
-        ? { width: baseWidth + (numClocks - 1) * clockSize, height: baseHeight }
+        ? {
+            width: baseWidth + numClocks * clockwidth,
+            height: isEditing ? baseHeight + editSectionHeight : baseHeight,
+          }
         : {
-            width: baseWidth,
-            height: baseHeight + (numClocks - 1) * clockSize + 30,
+            width: 430,
+            height:
+              // baseHeight +
+              numClocks * clockHeight +
+              (isEditing ? editSectionHeight * numClocks : 0),
           };
 
     // Ensure the height doesn't exceed the screen height
@@ -49,6 +59,7 @@ const App = () => {
     }
 
     window.electron.ipcRenderer.send("resize-app", newSize);
+    console.log("numClocks", numClocks);
   };
 
   const addClock = () => {
@@ -117,7 +128,7 @@ const App = () => {
               <i class="fa-solid fa-arrows-left-right"></i>
             )}
             <span className="button-text">
-              {resizeDirection === "horizontal" ? "Horizontal" : "Vertical"}
+              {resizeDirection === "horizontal" ? "Vertical" : "Horizontal"}
             </span>
           </button>
         </div>
